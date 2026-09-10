@@ -1,0 +1,39 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isStaff() {
+      return request.auth != null &&
+        firestore.exists(/databases/(default)/documents/users/$(request.auth.uid));
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    // ------------------------------------------------------------------
+    // mobilhomes/** — photos attached to a mobil-home listing. Publicly
+    // readable (they are meant to be shown on the public site), but only
+    // staff can upload/replace/delete them. Individual files are capped at
+    // 8 MB (client-side compression already brings this well under 1 MB;
+    // this is a hard safety net against abuse).
+    // ------------------------------------------------------------------
+    match /mobilhomes/{allPaths=**} {
+      allow read: if true;
+      allow write: if isStaff() && isImage() && request.resource.size < 8 * 1024 * 1024;
+    }
+
+    // ------------------------------------------------------------------
+    // buyback-uploads/** — photos submitted by the public through the
+    // "Vendre mon mobil-home" form. Anyone can upload (create) up to the
+    // client-enforced limit of 4 photos per request, but only staff can
+    // read or delete them. Each file is capped at 8 MB.
+    // ------------------------------------------------------------------
+    match /buyback-uploads/{requestId}/{fileName} {
+      allow create: if isImage() && request.resource.size < 8 * 1024 * 1024;
+      allow read, delete: if isStaff();
+      allow update: if false;
+    }
+  }
+}

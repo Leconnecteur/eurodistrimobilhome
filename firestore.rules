@@ -1,0 +1,110 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // A "staff" member is any authenticated user who has a corresponding
+    // document in /users/{uid}. Role differentiation (admin/manager/editor)
+    // can be layered on top of this later; for now any staff account has
+    // full access to the admin-only collections below.
+    function isStaff() {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function isString(value, maxLen) {
+      return value is string && value.size() <= maxLen;
+    }
+
+    // ---------------------------------------------------------------------
+    // users — staff accounts. Never publicly readable/writable. Staff can
+    // read their own profile; creation/role changes are done from the
+    // Firebase console or a trusted server context, not from the client.
+    // ---------------------------------------------------------------------
+    match /users/{userId} {
+      allow read: if isStaff() && request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // mobilhomes — publicly readable only when published (and, unless an
+    // admin disables it, even when sold). Only staff can create/update/delete.
+    // ---------------------------------------------------------------------
+    match /mobilhomes/{mobilHomeId} {
+      allow read: if resource.data.published == true || isStaff();
+      allow create, update, delete: if isStaff();
+    }
+
+    // ---------------------------------------------------------------------
+    // leads — anyone can create a lead (contact form / mobil-home info
+    // request) provided the payload matches the expected shape and stays
+    // within sane size limits. No public read/update/delete.
+    // ---------------------------------------------------------------------
+    match /leads/{leadId} {
+      allow read, update, delete: if isStaff();
+      allow create: if
+        isString(request.resource.data.name, 100) &&
+        isString(request.resource.data.email, 150) &&
+        isString(request.resource.data.phone, 30) &&
+        isString(request.resource.data.message, 2000) &&
+        request.resource.data.status == 'NEW' &&
+        request.resource.data.type in ['CONTACT', 'MOBILHOME_INFO', 'BUYBACK', 'GENERAL'] &&
+        request.resource.data.source is string;
+    }
+
+    match /leadNotes/{noteId} {
+      allow read, create, update, delete: if isStaff();
+    }
+
+    match /leadActivities/{activityId} {
+      allow read, create: if isStaff();
+      allow update, delete: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // buybackRequests — anyone can submit a buy-back request, capped at 4
+    // photos, with strict field validation. No public read/update/delete.
+    // ---------------------------------------------------------------------
+    match /buybackRequests/{requestId} {
+      allow read, update, delete: if isStaff();
+      allow create: if
+        isString(request.resource.data.firstName, 100) &&
+        isString(request.resource.data.lastName, 100) &&
+        isString(request.resource.data.email, 150) &&
+        isString(request.resource.data.phone, 30) &&
+        isString(request.resource.data.brand, 100) &&
+        isString(request.resource.data.model, 100) &&
+        isString(request.resource.data.description, 2000) &&
+        request.resource.data.consent == true &&
+        request.resource.data.status == 'NEW' &&
+        request.resource.data.images is list &&
+        request.resource.data.images.size() <= 4;
+    }
+
+    match /buybackNotes/{noteId} {
+      allow read, create, update, delete: if isStaff();
+    }
+
+    match /buybackActivities/{activityId} {
+      allow read, create: if isStaff();
+      allow update, delete: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // settings — public read (company name/phone/email/address are shown
+    // on the public site and PDF sheets), staff-only write.
+    // ---------------------------------------------------------------------
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isStaff();
+    }
+
+    // ---------------------------------------------------------------------
+    // counters — used to generate sequential mobil-home references. Never
+    // publicly readable or writable.
+    // ---------------------------------------------------------------------
+    match /counters/{counterId} {
+      allow read, write: if isStaff();
+    }
+  }
+}

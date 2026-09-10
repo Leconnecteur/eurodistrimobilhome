@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#252A2E"/>
+      <stop offset="100%" stop-color="#252A2E" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <g opacity="0.9">
+    <rect x="345.59999999999997" y="453.59999999999997" width="1228.8" height="345.6" rx="14" fill="none" stroke="#D9A72B" stroke-width="6"/>
+    <polygon points="268.8,453.59999999999997 960.0,259.2 1651.2,453.59999999999997" fill="none" stroke="#D9A72B" stroke-width="6" stroke-linejoin="round"/>
+    <rect x="537.6" y="561.6" width="230.39999999999998" height="172.8" fill="none" stroke="#D9A72B" stroke-width="4"/>
+    <rect x="883.2" y="561.6" width="153.6" height="86.4" fill="none" stroke="#D9A72B" stroke-width="4"/>
+    <rect x="1152.0" y="561.6" width="153.6" height="86.4" fill="none" stroke="#D9A72B" stroke-width="4"/>
+  </g>
+  <text x="50%" y="88%" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" fill="#D9A72B" opacity="0.85">EURO DISTRI MOBILHOME</text>
+</svg>
