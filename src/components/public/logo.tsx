@@ -12,22 +12,29 @@ export function Logo({
 }: {
   locale: Locale;
   className?: string;
-  variant?: "default" | "mono-light";
+  variant?: "default" | "on-dark";
   height?: number;
 }) {
+  const image = (
+    <Image
+      src="/brand/logo-trimmed.png"
+      alt="Euro Distri Mobilhome"
+      width={Math.round(height * LOGO_RATIO)}
+      height={height}
+      priority
+    />
+  );
+
   return (
     <Link
       href={`/${locale}`}
       className={`flex items-center gap-2 ${className ?? ""}`}
     >
-      <Image
-        src="/brand/logo-trimmed.png"
-        alt="Euro Distri Mobilhome"
-        width={Math.round(height * LOGO_RATIO)}
-        height={height}
-        priority
-        className={variant === "mono-light" ? "brightness-0 invert" : ""}
-      />
+      {variant === "on-dark" ? (
+        <span className="rounded-lg bg-white/95 px-3 py-2 shadow-sm">{image}</span>
+      ) : (
+        image
+      )}
     </Link>
   );
 }

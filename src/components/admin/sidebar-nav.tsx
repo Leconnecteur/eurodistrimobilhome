@@ -43,13 +43,14 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-2 px-5 py-5">
-        <Image
-          src="/brand/logo-trimmed.png"
-          alt="Euro Distri Mobilhome"
-          width={Math.round(36 * (449 / 334))}
-          height={36}
-          className="brightness-0 invert"
-        />
+        <span className="rounded-lg bg-white/95 px-3 py-2 shadow-sm">
+          <Image
+            src="/brand/logo-trimmed.png"
+            alt="Euro Distri Mobilhome"
+            width={Math.round(36 * (449 / 334))}
+            height={36}
+          />
+        </span>
       </div>
 
       <div className="px-3 pb-2">

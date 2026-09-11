@@ -21,7 +21,7 @@ export function Footer({
     <footer className="border-t border-border/60 bg-brand-anthracite text-white/80">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="space-y-4">
-          <Logo locale={locale} variant="mono-light" height={40} />
+          <Logo locale={locale} variant="on-dark" height={36} />
           <p className="max-w-xs text-sm text-white/60">{dict.footer.tagline}</p>
         </div>
 
