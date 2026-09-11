@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { listBuybackRequestsAdmin } from "@/lib/data/admin-buyback";
-import { BUYBACK_STATUSES, type BuybackRequest, type BuybackStatus } from "@/types/buyback";
+import { BUYBACK_STATUSES, BUYBACK_STATUS_LABELS, type BuybackRequest, type BuybackStatus } from "@/types/buyback";
 import { Badge } from "@/components/ui/badge";
 
 const STATUS_COLORS: Record<BuybackStatus, string> = {
@@ -47,7 +47,7 @@ export default function AdminBuybackPage() {
           <option value="">Tous les statuts</option>
           {BUYBACK_STATUSES.map((s) => (
             <option key={s} value={s}>
-              {s}
+              {BUYBACK_STATUS_LABELS[s]}
             </option>
           ))}
         </select>
@@ -95,7 +95,7 @@ export default function AdminBuybackPage() {
                     {r.city}, {r.country}
                   </td>
                   <td className="p-3">
-                    <Badge className={STATUS_COLORS[r.status]}>{r.status}</Badge>
+                    <Badge className={STATUS_COLORS[r.status]}>{BUYBACK_STATUS_LABELS[r.status]}</Badge>
                   </td>
                   <td className="p-3 text-xs text-muted-foreground">
                     {new Date(r.createdAt).toLocaleDateString("fr-FR")}

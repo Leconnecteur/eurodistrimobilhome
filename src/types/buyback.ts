@@ -17,6 +17,16 @@ export const BUYBACK_STATUSES: BuybackStatus[] = [
   "CLOSED",
 ];
 
+export const BUYBACK_STATUS_LABELS: Record<BuybackStatus, string> = {
+  NEW: "Nouveau",
+  REVIEWING: "À l'étude",
+  CONTACTED: "Contacté",
+  OFFER_SENT: "Offre envoyée",
+  ACCEPTED: "Accepté",
+  REFUSED: "Refusé",
+  CLOSED: "Clôturé",
+};
+
 export interface BuybackImage {
   url: string;
   storagePath: string;

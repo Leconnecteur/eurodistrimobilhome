@@ -8,6 +8,7 @@ import { listLeadsAdmin } from "@/lib/data/admin-leads";
 import { listBuybackRequestsAdmin } from "@/lib/data/admin-buyback";
 import type { MobilHome } from "@/types/mobilhome";
 import type { Lead } from "@/types/lead";
+import { BUYBACK_STATUS_LABELS } from "@/types/buyback";
 import type { BuybackRequest } from "@/types/buyback";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -139,7 +140,7 @@ export default function AdminDashboardPage() {
                     {request.brand} {request.model} · {request.city}
                   </p>
                 </div>
-                <Badge variant="outline">{request.status}</Badge>
+                <Badge variant="outline">{BUYBACK_STATUS_LABELS[request.status]}</Badge>
               </Link>
             ))}
           </CardContent>

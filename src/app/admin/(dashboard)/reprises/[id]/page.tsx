@@ -16,6 +16,7 @@ import {
 } from "@/lib/data/admin-buyback";
 import {
   BUYBACK_STATUSES,
+  BUYBACK_STATUS_LABELS,
   type BuybackActivity,
   type BuybackNote,
   type BuybackRequest,
@@ -105,7 +106,7 @@ export default function BuybackDetailPage({ params }: { params: Promise<{ id: st
             >
               {BUYBACK_STATUSES.map((s) => (
                 <option key={s} value={s}>
-                  {s}
+                  {BUYBACK_STATUS_LABELS[s]}
                 </option>
               ))}
             </select>
