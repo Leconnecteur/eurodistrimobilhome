@@ -10,6 +10,7 @@ import {
 } from "@/lib/data/mobilhomes";
 import { MobilHomeCard } from "@/components/mobilhomes/mobilhome-card";
 import { CatalogFilters } from "@/components/mobilhomes/catalog-filters";
+import { PageBanner } from "@/components/public/page-banner";
 import type {
   EquipmentKey,
   MobilHomeFilters,
@@ -85,14 +86,13 @@ export default async function CatalogPage(props: PageProps<"/[locale]/mobilhomes
   const countries = getDistinctCountries(allPublished);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mb-8">
-        <h1 className="font-heading text-3xl font-bold text-brand-anthracite md:text-4xl">
-          {dict.catalog.title}
-        </h1>
-        <p className="mt-2 max-w-2xl text-muted-foreground">{dict.catalog.subtitle}</p>
-      </div>
-
+    <div>
+      <PageBanner
+        image="/images/banner-catalog.jpg"
+        title={dict.catalog.title}
+        subtitle={dict.catalog.subtitle}
+      />
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <CatalogFilters dict={dict} brands={brands} countries={countries} />
 
       <p className="mb-4 mt-6 text-sm text-muted-foreground">
@@ -110,6 +110,7 @@ export default async function CatalogPage(props: PageProps<"/[locale]/mobilhomes
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

@@ -37,11 +37,12 @@ export default async function HomePage(props: PageProps<"/[locale]">) {
       {/* Hero */}
       <section className="relative overflow-hidden bg-brand-anthracite text-white">
         <Image
-          src="/demo/hero.svg"
+          src="/images/hero.jpg"
           alt=""
           fill
           priority
-          className="object-cover opacity-40"
+          sizes="100vw"
+          className="object-cover opacity-50"
         />
         <div className="relative mx-auto flex max-w-7xl flex-col items-start gap-6 px-4 py-28 sm:px-6 md:py-36 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-gold-light">

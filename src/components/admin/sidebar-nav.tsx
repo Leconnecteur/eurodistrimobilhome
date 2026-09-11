@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import {
+  ArrowLeft,
   Home,
   LayoutDashboard,
   LogOut,
@@ -16,6 +18,7 @@ import {
 } from "lucide-react";
 import { getFirebaseAuth } from "@/lib/firebase/client";
 import { cn } from "@/lib/utils";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
@@ -40,13 +43,24 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-2 px-5 py-5">
-        <span className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-gold text-brand-anthracite">
-          <Home className="h-5 w-5" />
-        </span>
-        <div className="leading-none text-white">
-          <p className="text-sm font-semibold">EURO DISTRI</p>
-          <p className="text-xs tracking-widest text-brand-gold-light">MOBILHOME</p>
-        </div>
+        <Image
+          src="/brand/logo-trimmed.png"
+          alt="Euro Distri Mobilhome"
+          width={Math.round(36 * (449 / 334))}
+          height={36}
+          className="brightness-0 invert"
+        />
+      </div>
+
+      <div className="px-3 pb-2">
+        <Link
+          href={`/${DEFAULT_LOCALE}`}
+          target="_blank"
+          className="flex items-center gap-3 rounded-md border border-white/10 px-3 py-2 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Retour au site
+        </Link>
       </div>
 
       <nav className="flex-1 space-y-1 px-3">

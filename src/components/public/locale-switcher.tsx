@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { LOCALES, LOCALE_LABELS, type Locale } from "@/lib/i18n/config";
+import { LOCALES, LOCALE_LABELS, LOCALE_FLAGS, type Locale } from "@/lib/i18n/config";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,11 +25,13 @@ export function LocaleSwitcher({ locale }: { locale: Locale }) {
       <DropdownMenuTrigger
         render={<Button variant="outline" size="sm" className="font-medium" />}
       >
+        <span aria-hidden="true">{LOCALE_FLAGS[locale]}</span>
         {LOCALE_LABELS[locale]}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {LOCALES.map((l) => (
           <DropdownMenuItem key={l} render={<Link href={pathForLocale(l)} />}>
+            <span aria-hidden="true">{LOCALE_FLAGS[l]}</span>
             {LOCALE_LABELS[l]}
           </DropdownMenuItem>
         ))}

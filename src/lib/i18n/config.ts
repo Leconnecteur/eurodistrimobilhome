@@ -9,6 +9,12 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   pt: "PT",
 };
 
+export const LOCALE_FLAGS: Record<Locale, string> = {
+  fr: "🇫🇷",
+  es: "🇪🇸",
+  pt: "🇵🇹",
+};
+
 export const LOCALE_NAMES: Record<Locale, string> = {
   fr: "Français",
   es: "Español",

@@ -4,6 +4,7 @@ import { CheckCircle2 } from "lucide-react";
 import { isLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { BuybackForm } from "@/components/forms/buyback-form";
+import { PageBanner } from "@/components/public/page-banner";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -26,14 +27,11 @@ export default async function SellPage(props: PageProps<"/[locale]/vendre-mon-mo
 
   return (
     <div>
-      <section className="bg-brand-cream/50 py-16">
-        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <h1 className="font-heading text-3xl font-bold text-brand-anthracite md:text-4xl">
-            {dict.sell.heroTitle}
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">{dict.sell.heroSubtitle}</p>
-        </div>
-      </section>
+      <PageBanner
+        image="/images/banner-sell.jpg"
+        title={dict.sell.heroTitle}
+        subtitle={dict.sell.heroSubtitle}
+      />
 
       <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <h2 className="mb-6 text-center font-heading text-xl font-semibold text-brand-anthracite">

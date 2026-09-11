@@ -21,10 +21,7 @@ export function Footer({
     <footer className="border-t border-border/60 bg-brand-anthracite text-white/80">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="space-y-4">
-          <Logo
-            locale={locale}
-            className="[&_span:first-child]:text-white [&_span:nth-child(2)]:text-brand-gold-light"
-          />
+          <Logo locale={locale} variant="mono-light" height={40} />
           <p className="max-w-xs text-sm text-white/60">{dict.footer.tagline}</p>
         </div>
 
@@ -80,6 +77,11 @@ export function Footer({
                 {dict.footer.privacy}
               </Link>
             </li>
+            <li>
+              <Link href="/admin" className="hover:text-white">
+                Administration
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -126,6 +128,16 @@ export function Footer({
       </div>
       <div className="border-t border-white/10 py-4 text-center text-xs text-white/50">
         © {year} {settings.companyName}. {dict.footer.rights}
+        {" — "}
+        Site réalisé par{" "}
+        <a
+          href="https://www.lcdstudio.fr/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white/70 underline-offset-2 hover:text-brand-gold-light hover:underline"
+        >
+          LCD Studio
+        </a>
       </div>
     </footer>
   );
