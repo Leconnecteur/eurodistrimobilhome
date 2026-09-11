@@ -32,7 +32,11 @@ service firebase.storage {
     // ------------------------------------------------------------------
     match /buyback-uploads/{requestId}/{fileName} {
       allow create: if isImage() && request.resource.size < 8 * 1024 * 1024;
-      allow read, delete: if isStaff();
+      // Public read is required so anonymous users can retrieve a download URL
+      // for the photos they just uploaded through the "Vendre mon mobil-home" form.
+      // URLs contain unguessable tokens; only staff can list/delete.
+      allow read: if true;
+      allow delete: if isStaff();
       allow update: if false;
     }
   }

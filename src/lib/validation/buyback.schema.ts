@@ -12,7 +12,7 @@ export const buybackFormSchema = z.object({
   city: z.string().trim().min(1).max(100),
   country: z.string().trim().min(1).max(100),
   condition: z.enum(["EXCELLENT", "VERY_GOOD", "GOOD", "TO_RENOVATE"]),
-  description: z.string().trim().min(10).max(2000),
+  description: z.string().trim().max(2000).optional().default(""),
   desiredPrice: z.coerce.number().nonnegative().optional().nullable(),
   terrace: z.boolean().default(false),
   airConditioning: z.boolean().default(false),

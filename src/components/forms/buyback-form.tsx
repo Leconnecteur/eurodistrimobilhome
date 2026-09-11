@@ -72,9 +72,10 @@ export function BuybackForm({ dict }: { dict: Dictionary }) {
     setErrors({});
     setStatus("sending");
     try {
+      const requestId = String(Date.now());
       const uploadedImages = isFirebaseConfigured
         ? await Promise.all(
-            images.map((img) => uploadImage(img.file, "buyback-uploads/" + Date.now()))
+            images.map((img) => uploadImage(img.file, "buyback-uploads/" + requestId))
           )
         : [];
 
@@ -186,7 +187,7 @@ export function BuybackForm({ dict }: { dict: Dictionary }) {
 
         <div className="mt-4">
           <Label htmlFor="description" className="mb-1.5">{dict.sell.description}</Label>
-          <Textarea id="description" name="description" rows={4} required />
+          <Textarea id="description" name="description" rows={4} />
           {errors.description && <p className="mt-1 text-xs text-destructive">{errors.description}</p>}
         </div>
 
